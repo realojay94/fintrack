@@ -1,0 +1,5 @@
+{
+  "name": "Remix: FinTrack AI",
+  "description": "A finance tracking application with auto-clustering and expense analysis.",
+  "requestFramePermissions": []
+}

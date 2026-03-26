@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "email": { "type": "string", "format": "email", "description": "User email" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User photo URL" },
+        "role": { "type": "string", "enum": ["admin", "user"], "description": "User role" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial transaction record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner user ID" },
+        "type": { "type": "string", "enum": ["income", "expense"], "description": "Transaction type" },
+        "amount": { "type": "number", "description": "Transaction amount" },
+        "description": { "type": "string", "description": "Transaction description" },
+        "category": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "color": { "type": "string" }
+          }
+        },
+        "date": { "type": "string", "format": "date-time", "description": "Transaction date" }
+      },
+      "required": ["uid", "type", "amount", "description", "date"]
+    },
+    "SavingGoal": {
+      "title": "SavingGoal",
+      "description": "Saving goal record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner user ID" },
+        "name": { "type": "string", "description": "Goal name" },
+        "type": { "type": "string", "description": "Goal type" },
+        "target": { "type": "number", "description": "Target amount" },
+        "current": { "type": "number", "description": "Current amount" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation date" }
+      },
+      "required": ["uid", "name", "target", "current", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Financial transactions"
+    },
+    "/saving_goals/{goalId}": {
+      "schema": "SavingGoal",
+      "description": "Saving goals"
+    }
+  }
+}
